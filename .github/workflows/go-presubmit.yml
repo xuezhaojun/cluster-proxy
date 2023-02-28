@@ -17,9 +17,9 @@ env:
   # Common versions
   GO_VERSION: '1.19'
   GO_REQUIRED_MIN_VERSION: ''
-defaults:
-  run:
-    working-directory: go/src/open-cluster-management.io/cluster-proxy
+# defaults:
+#   run:
+#     working-directory: go/src/open-cluster-management.io/cluster-proxy
 
 jobs:
   build:
@@ -28,9 +28,9 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-          path: go/src/open-cluster-management.io/cluster-proxy
+        # with:
+        #   fetch-depth: 1
+        #   path: go/src/open-cluster-management.io/cluster-proxy
       - name: install Go
         uses: actions/setup-go@v2
         with:
@@ -51,9 +51,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-          path: go/src/open-cluster-management.io/cluster-proxy
+        # with:
+        #   fetch-depth: 1
+        #   path: go/src/open-cluster-management.io/cluster-proxy
       - name: install Go
         uses: actions/setup-go@v2
         with:
@@ -66,9 +66,9 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-          path: go/src/open-cluster-management.io/cluster-proxy
+        # with:
+        #   fetch-depth: 1
+        #   path: go/src/open-cluster-management.io/cluster-proxy
       - name: install Go
         uses: actions/setup-go@v2
         with:
@@ -79,7 +79,8 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_UPLOAD_TOKEN}}
-          files: go/src/open-cluster-management.io/cluster-proxy/unit_coverage.out
+          # files: go/src/open-cluster-management.io/cluster-proxy/unit_coverage.out
+          files: ./unit_coverage.out
           flags: unit
           name: unit
           verbose: true
@@ -91,9 +92,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-          path: go/src/open-cluster-management.io/cluster-proxy
       - name: install Go
         uses: actions/setup-go@v2
         with:
@@ -104,7 +102,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_UPLOAD_TOKEN}}
-          files: go/src/open-cluster-management.io/cluster-proxy/integration_coverage.out
+          files: ./integration_coverage.out
           flags: integration
           name: integration
           verbose: true
@@ -115,9 +113,6 @@ jobs:
     steps:
       - name: checkout code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-          path: go/src/open-cluster-management.io/cluster-proxy
       - name: install Go
         uses: actions/setup-go@v2
         with:
@@ -152,7 +147,7 @@ jobs:
         uses: codecov/codecov-action@v3
         with:
           token: ${{secrets.CODECOV_UPLOAD_TOKEN}}
-          files: go/src/open-cluster-management.io/cluster-proxy/e2e_coverage.out
+          files: ./e2e_coverage.out
           flags: e2e
           name: e2e
           verbose: true
