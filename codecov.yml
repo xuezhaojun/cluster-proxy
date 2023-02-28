@@ -9,4 +9,4 @@ coverage:
 # This is needed because:
 #
 fixes:
-  - "/go/src/open-cluster-management.io/cluster-proxy/::"
+  - "cluster-proxy/go/src/open-cluster-management.io/cluster-proxy::"
