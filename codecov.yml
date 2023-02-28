@@ -7,6 +7,6 @@ coverage:
 
 # https://docs.codecov.com/docs/fixing-paths
 # This is needed because:
-#
+# The path on codecov is cluster-proxy/go/src/open-cluster-management.io/cluster-proxy/pkg/proxyserver/controllers/service_resolver_controller.go and it should fix to pkg/proxyserver/controllers/service_resolver_controller.go
 fixes:
   - "cluster-proxy/go/src/open-cluster-management.io/cluster-proxy::"
