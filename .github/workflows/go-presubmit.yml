@@ -6,10 +6,12 @@ on:
     branches:
       - main
       - release-*
+      - test* # TODO: remove
   pull_request:
     branches:
       - main
       - release-*
+      - test* # TODO: remove
 
 env:
   # Common versions
