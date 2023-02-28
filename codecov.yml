@@ -4,3 +4,9 @@ coverage:
       default:
         target: auto
         threshold: 1%
+
+# https://docs.codecov.com/docs/fixing-paths
+# This is needed because:
+#
+fixes:
+  - "/go/src/open-cluster-management.io/cluster-proxy/::"
