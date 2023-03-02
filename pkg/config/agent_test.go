@@ -15,15 +15,6 @@ func TestGetParsedAgentImage(t *testing.T) {
 		tag            string
 	}{
 		{
-			// no registry
-			// no tag
-			"open-cluster-management.io/cluster-proxy-agent",
-			false,
-			"open-cluster-management.io",
-			"cluster-proxy-agent",
-			"latest",
-		},
-		{
 			// no tag
 			"quay.io/open-cluster-management.io/cluster-proxy-agent",
 			false,

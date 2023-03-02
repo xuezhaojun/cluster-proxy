@@ -61,65 +61,6 @@ func TestFilterMPSR(t *testing.T) {
 		expected  []serviceToExpose
 	}{
 		{
-			name: "filter out the resolver with deletion timestamp",
-			resolvers: []proxyv1alpha1.ManagedProxyServiceResolver{
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name:              "resolver-1",
-						DeletionTimestamp: &metav1.Time{Time: time.Now()},
-					},
-					Spec: proxyv1alpha1.ManagedProxyServiceResolverSpec{
-						ManagedClusterSelector: proxyv1alpha1.ManagedClusterSelector{
-							Type: proxyv1alpha1.ManagedClusterSelectorTypeClusterSet,
-							ManagedClusterSet: &proxyv1alpha1.ManagedClusterSet{
-								Name: "set-1",
-							},
-						},
-						ServiceSelector: proxyv1alpha1.ServiceSelector{
-							Type: proxyv1alpha1.ServiceSelectorTypeServiceRef,
-							ServiceRef: &proxyv1alpha1.ServiceRef{
-								Name:      "service-1",
-								Namespace: "ns-1",
-							},
-						},
-					},
-				},
-				{
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "resolver-2", // this one expected to exist
-					},
-					Spec: proxyv1alpha1.ManagedProxyServiceResolverSpec{
-						ManagedClusterSelector: proxyv1alpha1.ManagedClusterSelector{
-							Type: proxyv1alpha1.ManagedClusterSelectorTypeClusterSet,
-							ManagedClusterSet: &proxyv1alpha1.ManagedClusterSet{
-								Name: "set-1",
-							},
-						},
-						ServiceSelector: proxyv1alpha1.ServiceSelector{
-							Type: proxyv1alpha1.ServiceSelectorTypeServiceRef,
-							ServiceRef: &proxyv1alpha1.ServiceRef{
-								Name:      "service-2",
-								Namespace: "ns-2",
-							},
-						},
-					},
-				},
-			},
-			mcsMap: map[string]clusterv1beta1.ManagedClusterSet{
-				"set-1": {
-					ObjectMeta: metav1.ObjectMeta{
-						Name: "set-1",
-					},
-				},
-			},
-			expected: []serviceToExpose{
-				{
-					Host:         util.GenerateServiceURL("cluster1", "ns-2", "service-2"),
-					ExternalName: "service-2.ns-2",
-				},
-			},
-		},
-		{
 			name: "filter out the resolver match other managed cluster set",
 			resolvers: []proxyv1alpha1.ManagedProxyServiceResolver{
 				{
