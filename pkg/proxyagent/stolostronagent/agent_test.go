@@ -448,10 +448,6 @@ func TestAgentAddonRegistrationOption(t *testing.T) {
 
 			cert := options.Registration.CSRSign(newCSR(c.signerName))
 			assert.Equal(t, c.expectedSignedCSR, (len(cert) != 0))
-
-			if c.expectedInstallNamespace != "" {
-				assert.Equal(t, c.expectedInstallNamespace, options.InstallStrategy.InstallNamespace)
-			}
 		})
 	}
 }
@@ -907,13 +903,12 @@ func TestNewAgentAddon(t *testing.T) {
 				c.v1CSRSupported,
 				fakeRuntimeClient,
 				fakeKubeClient,
-				false,
 				c.enableKubeApiProxy,
 				fakeAddonClient,
 			)
 			assert.NoError(t, err)
 
-			manifests, err := agentAddOn.Manifests(c.cluster, c.addon)
+			manifests, err := agentAddOn.Manifests(c.cluster, c.addon.DeepCopy())
 			if c.expectedErrorMsg != "" {
 				assert.ErrorContains(t, err, c.expectedErrorMsg)
 				return
