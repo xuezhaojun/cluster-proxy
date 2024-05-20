@@ -59,7 +59,6 @@ func NewAgentAddon(
 	v1CSRSupported bool,
 	runtimeClient client.Client,
 	nativeClient kubernetes.Interface,
-	agentInstallAll bool,
 	enableKubeApiProxy bool,
 	addonClient addonclient.Interface) (agent.AgentAddon, error) {
 	caCertData, caKeyData, err := signer.CA().Config.GetPEMBytes()
@@ -150,18 +149,10 @@ func NewAgentAddon(
 				utils.NewAddOnDeploymentConfigGetter(addonClient),
 				toAgentAddOnChartValues(caCertData),
 			),
-		)
-
-	if agentInstallAll {
-		agentFactory.WithInstallStrategy(agent.InstallByFilterFunctionStrategy(config.AddonInstallNamespace, func(cluster *clusterv1.ManagedCluster) bool {
-			if cluster.Annotations["import.open-cluster-management.io/klusterlet-deploy-mode"] == "Hosted" &&
-				cluster.Annotations["import.open-cluster-management.io/hosting-cluster-name"] != "" &&
-				cluster.Annotations["addon.open-cluster-management.io/enable-hosted-mode-addons"] == "true" {
-				return false
-			}
-			return true
-		}))
-	}
+		).
+		WithAgentInstallNamespace(utils.AgentInstallNamespaceFromDeploymentConfigFunc(
+			utils.NewAddOnDeploymentConfigGetter(addonClient),
+		))
 
 	return agentFactory.BuildHelmAgentAddon()
 }

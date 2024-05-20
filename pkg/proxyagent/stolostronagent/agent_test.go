@@ -36,7 +36,7 @@ import (
 	clusterv1 "open-cluster-management.io/api/cluster/v1"
 	clusterv1beta2 "open-cluster-management.io/api/cluster/v1beta2"
 	proxyv1alpha1 "open-cluster-management.io/cluster-proxy/pkg/apis/proxy/v1alpha1"
-	"open-cluster-management.io/cluster-proxy/pkg/config"
+
 	"open-cluster-management.io/cluster-proxy/pkg/proxyserver/operator/authentication/selfsigned"
 	"open-cluster-management.io/cluster-proxy/pkg/util"
 	runtimeclient "sigs.k8s.io/controller-runtime/pkg/client"
@@ -372,24 +372,20 @@ func TestRemoveDupAndSortservicesToExpose(t *testing.T) {
 
 func TestAgentAddonRegistrationOption(t *testing.T) {
 	cases := []struct {
-		name                     string
-		signerName               string
-		v1CSRSupported           bool
-		agentInstallAll          bool
-		cluster                  *clusterv1.ManagedCluster
-		addon                    *addonv1alpha1.ManagedClusterAddOn
-		expextedCSRConfigs       int
-		expectedCSRApprove       bool
-		expectedSignedCSR        bool
-		expectedInstallNamespace string
+		name               string
+		signerName         string
+		v1CSRSupported     bool
+		cluster            *clusterv1.ManagedCluster
+		addon              *addonv1alpha1.ManagedClusterAddOn
+		expextedCSRConfigs int
+		expectedCSRApprove bool
+		expectedSignedCSR  bool
 	}{
 		{
-			name:                     "install all",
-			agentInstallAll:          true,
-			cluster:                  newCluster("cluster", false),
-			addon:                    newAddOn("addon", "cluster"),
-			expextedCSRConfigs:       1,
-			expectedInstallNamespace: config.AddonInstallNamespace,
+			name:               "install all",
+			cluster:            newCluster("cluster", false),
+			addon:              newAddOn("addon", "cluster"),
+			expextedCSRConfigs: 1,
 		},
 		{
 			name:               "csr v1 supported",
@@ -425,7 +421,6 @@ func TestAgentAddonRegistrationOption(t *testing.T) {
 				c.v1CSRSupported,
 				nil,
 				fakeKubeClient,
-				c.agentInstallAll,
 				true,
 				nil,
 			)
