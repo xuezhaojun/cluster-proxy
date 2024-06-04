@@ -20,6 +20,7 @@ import (
 	"context"
 	"flag"
 	"os"
+	"time"
 
 	// Import all Kubernetes client auth plugins (e.g. Azure, GCP, OIDC, etc.)
 	// to ensure that exec-entrypoint and run can make use of them.
@@ -205,6 +206,8 @@ func main() {
 	go nativeInformer.Start(ctx.Done())
 	go func() {
 		<-mgr.Elected()
+		// This is to temp approach to fix the issue: https://issues.redhat.com/browse/ACM-11947.
+		time.Sleep(10 * time.Second)
 		if err := addonManager.Start(ctx); err != nil {
 			setupLog.Error(err, "unable to start addon manager")
 			os.Exit(1)
