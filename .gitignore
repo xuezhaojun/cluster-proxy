@@ -4,23 +4,33 @@
 *.dll
 *.so
 *.dylib
+.DS_Store
+
+/cluster-proxy
+/proxy-agent
+/proxy-server
+registration-operator/
+cluster-proxy-addon-chart/
 
 # Test binary, built with `go test -c`
 *.test
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
+*.diff
+_output/
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+.vscode/
+.idea/**
 
 /apiserver.local.config
 /bin
 /default.etcd
 /kubeconfig
 /config/crds/
-.idea/**
-.DS_Store
 
 index.yaml
 cluster-proxy-*.tgz
