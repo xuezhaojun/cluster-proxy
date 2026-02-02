@@ -115,6 +115,18 @@ func main() {
 	// pipe controller-runtime logs to klog
 	ctrl.SetLogger(logger)
 
+	// Log startup configuration for debugging purposes
+	setupLog.Info("cluster-proxy addon manager starting",
+		"metricsAddr", metricsAddr,
+		"probeAddr", probeAddr,
+		"leaderElection", enableLeaderElection,
+		"signerSecretNamespace", signerSecretNamespace,
+		"signerSecretName", signerSecretName,
+		"enableKubeApiProxy", enableKubeApiProxy,
+		"enableServiceProxy", enableServiceProxy,
+		"imagePullPolicy", imagePullPolicy,
+	)
+
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
 		Scheme:                 scheme,
 		Metrics:                metricsserver.Options{BindAddress: metricsAddr},
@@ -153,6 +165,7 @@ func main() {
 		setupLog.Error(err, "failed to get ManagedProxyConfiguration 'cluster-proxy'")
 		os.Exit(1)
 	}
+	setupLog.Info("successfully loaded ManagedProxyConfiguration", "name", proxyConfig.Name)
 	ownerRef := selfsigned.NewOwnerReferenceFromConfig(proxyConfig)
 
 	// loading self-signer
