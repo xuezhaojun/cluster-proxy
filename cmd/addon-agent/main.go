@@ -32,6 +32,7 @@ var (
 const envKeyPodNamespace = "POD_NAMESPACE"
 
 func main() {
+	klog.Infof("Starting cluster-proxy addon agent")
 
 	logger := textlogger.NewLogger(textlogger.NewConfig())
 	klog.SetOutput(os.Stdout)
