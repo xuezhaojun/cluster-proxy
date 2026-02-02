@@ -36,6 +36,7 @@ func main() {
 	logger := textlogger.NewLogger(textlogger.NewConfig())
 	klog.SetOutput(os.Stdout)
 	klog.InitFlags(flag.CommandLine)
+	klog.Infof("Addon agent starting initialization")
 	flag.StringVar(&hubKubeconfig, "hub-kubeconfig", "",
 		"The kubeconfig to talk to hub cluster")
 	flag.StringVar(&clusterName, "cluster-name", "",
