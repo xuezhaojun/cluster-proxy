@@ -205,6 +205,7 @@ func main() {
 		}
 	}()
 	setupLog.Info("starting manager")
+	setupLog.Info("cluster-proxy addon manager initialized successfully")
 	if err := mgr.Start(ctx); err != nil {
 		setupLog.Error(err, "problem running manager")
 		os.Exit(1)
