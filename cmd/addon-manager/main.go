@@ -73,6 +73,7 @@ func main() {
 	logger := textlogger.NewLogger(textlogger.NewConfig())
 	klog.SetOutput(os.Stdout)
 	klog.InitFlags(flag.CommandLine)
+	klog.Info("Starting cluster-proxy addon manager")
 	flag.StringVar(&metricsAddr, "metrics-bind-address", ":58080", "The address the metric endpoint binds to.")
 	flag.StringVar(&probeAddr, "health-probe-bind-address", ":58081", "The address the probe endpoint binds to.")
 	flag.BoolVar(&enableLeaderElection, "leader-elect", false,
