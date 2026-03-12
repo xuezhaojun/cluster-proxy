@@ -7,8 +7,8 @@ ARG APISERVER_NETWORK_PROXY_VERSION=0.30.2
 ARG KUBECTL_VERSION=v1.30.2
 ARG ADDON_AGENT_IMAGE_NAME
 
-# Build apiserver-network-proxy binaries from git submodule (third_party/apiserver-network-proxy)
-# The submodule is at version v0.1.6-patch-03 from https://github.com/stolostron/apiserver-network-proxy
+# Copy and build apiserver-network-proxy binaries from git submodule
+COPY third_party/apiserver-network-proxy third_party/apiserver-network-proxy
 RUN cd third_party/apiserver-network-proxy && \
     CGO_ENABLED=1 go build -o proxy-agent cmd/agent/main.go && \
     CGO_ENABLED=1 go build -o proxy-server cmd/server/main.go
